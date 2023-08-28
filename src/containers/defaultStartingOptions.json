@@ -1,0 +1,39 @@
+{
+  "startingOptions": [
+    {
+      "id": 14245,
+      "name": "Bryan Cranston",
+      "imgUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/195/488839.jpg",
+      "previousCommonShow": null,
+      "nextCommonShow": null
+    },
+    {
+      "id": 48973,
+      "name": "James Gandolfini",
+      "imgUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/277/694150.jpg",
+      "previousCommonShow": null,
+      "nextCommonShow": null
+    },
+    {
+      "id": 11487,
+      "name": "Betty White",
+      "imgUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/3/7898.jpg",
+      "previousCommonShow": null,
+      "nextCommonShow": null
+    },
+    {
+      "id": 34718,
+      "name": "Alan Alda",
+      "imgUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/16/40800.jpg",
+      "previousCommonShow": null,
+      "nextCommonShow": null    
+    },
+    {
+      "id": 23746,
+      "name": "Robin Williams",
+      "imgUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/3/8146.jpg",
+      "previousCommonShow": null,
+      "nextCommonShow": null
+    }
+  ]
+}

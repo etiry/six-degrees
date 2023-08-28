@@ -41,12 +41,12 @@ export const gameStatusSlice = createSlice({
     incrementCurrentDegree: state => {
       state.currentDegreeIndex += 1;
     },
-    selectDegree: (state, action) => {
+    updateDegree: (state, action) => {
       state.selections[state.currentDegreeIndex] = action.payload;
     }
   }
 })
 
-export const { incrementCurrentDegree, selectDegree } = gameStatusSlice.actions;
+export const { incrementCurrentDegree, updateDegree } = gameStatusSlice.actions;
 
 export default gameStatusSlice.reducer;

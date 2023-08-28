@@ -11,7 +11,7 @@ const Options = () => {
   let content;
 
   if (optionsStatus === 'loading') {
-    content = <p>"Loading..." </p>;
+    content = <p>Loading...</p>;
   } else if (optionsStatus === 'succeeded') {
     content = connections.map((person) => 
       <Person key={person.id} person={person} />

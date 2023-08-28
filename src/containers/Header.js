@@ -1,11 +1,31 @@
+import { useDispatch } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import defaultStartingOptions from './defaultStartingOptions.json';
+import { incrementCurrentDegree, updateDegree } from '../components/gameStatus/gameStatusSlice';
+import { getConnections } from '../components/options/optionsSlice';
 
 function Header() {
+  const dispatch = useDispatch();
+  const startingOptions = defaultStartingOptions.startingOptions;
+
+  const getRandomOption = (optionArray) => {
+    return optionArray[(Math.floor(Math.random() * optionArray.length))] 
+  };
+
+  const handleGetRandomClick = () => {
+    const randomFirstSelection = getRandomOption(startingOptions);
+    dispatch(updateDegree(randomFirstSelection));
+    dispatch(getConnections(randomFirstSelection.id));
+    dispatch(incrementCurrentDegree());
+  };
+
   return (
     <Navbar className="bg-body-tertiary">
       <Container>
         <Navbar.Brand>Six Degrees</Navbar.Brand>
+        <Button variant="primary" onClick={handleGetRandomClick}>Get random starting actor</Button>
       </Container>
     </Navbar>
   );

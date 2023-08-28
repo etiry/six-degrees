@@ -18,6 +18,7 @@ export default function Person ({ person }) {
       <div className="avatar-big text-center m-2" onClick={handleSelectionClick}>
         <Image src={person.imgUrl} className="avatar-img rounded-circle" />
         <p>{person.name}</p>
+        <p>{person.previousCommonShow}</p>
       </div>
     </Col>
   )

@@ -6,12 +6,12 @@ const PROXY_URL = 'https://corsproxy.io/?';
 
 const getShowId = (showUrl) => showUrl.split('/').pop();
 
-const getPersonInfo = (person) => {
+const getPersonInfo = (person, show) => {
   return {
     id: person.id,
     name: person.name,
     imgUrl: person.image ? person.image.medium : null,
-    previousCommonShow: null,
+    previousCommonShow: show,
     nextCommonShow: null
   }
 }
@@ -27,7 +27,8 @@ const fetchShows = async (personId) => {
 const fetchCast = async (showId) => {
   const url = `${PROXY_URL}${ROOT_URL}/shows/${showId}?embed=cast`;
   const response = await axios.get(url);
-  const cast = response.data._embedded.cast.map((castMember) => getPersonInfo(castMember.person));
+  const commonShow = response.data.name;
+  const cast = response.data._embedded.cast.map((castMember) => getPersonInfo(castMember.person, commonShow));
 
   return cast;
 };

@@ -9,8 +9,8 @@ const GameStatus = () => {
   return (
     <Container>
       <Row>
-        {selections.map((person) =>
-          <Person key={person.id} person={person} />
+        {selections.map((person, index) =>
+          <Person key={index} person={person} />
         )}
       </Row>
     </Container>

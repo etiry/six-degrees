@@ -10,7 +10,9 @@ const getPersonInfo = (person) => {
   return {
     id: person.id,
     name: person.name,
-    imgUrl: person.image ? person.image.medium : null
+    imgUrl: person.image ? person.image.medium : null,
+    previousCommonShow: null,
+    nextCommonShow: null
   }
 }
 

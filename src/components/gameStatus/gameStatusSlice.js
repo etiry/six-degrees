@@ -1,41 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import defaultStatus from './defaultStatus.json';
 
 export const gameStatusSlice = createSlice({
   name: 'gameStatus',
   initialState: {
     currentDegreeIndex: 0,
-    selections: [
-      {
-        id: 6800,
-        name: 'Lauren Graham',
-        imgUrl: 'https://static.tvmaze.com/uploads/images/medium_portrait/1/4960.jpg'
-      },
-      {
-        id: 2,
-        name: null,
-        imgUrl: null
-      },
-      {
-        id: 3,
-        name: null,
-        imgUrl: null
-      },
-      {
-        id: 4,
-        name: null,
-        imgUrl: null
-      },
-      {
-        id: 5,
-        name: null,
-        imgUrl: null
-      },
-      {
-        id: 33538,
-        name: 'Kevin Bacon',
-        imgUrl: 'https://static.tvmaze.com/uploads/images/medium_portrait/3/8833.jpg'
-      },      
-    ]
+    selections: defaultStatus.degreeSelections
   },
   reducers: {
     incrementCurrentDegree: state => {

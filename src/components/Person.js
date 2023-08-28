@@ -8,10 +8,9 @@ export default function Person ({ person }) {
   const dispatch = useDispatch();
 
   const handleSelectionClick = () => {
-    dispatch(incrementCurrentDegree());
     dispatch(updateDegree(person));
     dispatch(getConnections(person.id));
-
+    dispatch(incrementCurrentDegree());
   };
 
   return (

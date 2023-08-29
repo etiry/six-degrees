@@ -1,25 +1,25 @@
 import { getConnections } from './options/optionsSlice';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
-import Col from 'react-bootstrap/Col';
 import { incrementCurrentDegree, updateDegree } from './gameStatus/gameStatusSlice';
 
 export default function Person ({ person }) {
   const dispatch = useDispatch();
+  const currentSelections = useSelector(state => state.gameStatus.selections);
+  const currentDegree = useSelector(state => state.gameStatus.currentDegreeIndex);
 
   const handleSelectionClick = () => {
-    dispatch(updateDegree(person));
-    dispatch(getConnections(person.id));
-    dispatch(incrementCurrentDegree());
+    if (currentDegree < 5) {
+      dispatch(updateDegree(person));
+      dispatch(getConnections(person.id, currentSelections));
+      dispatch(incrementCurrentDegree());
+    }
   };
 
   return (
-    <Col className="mb-5">
-      <div className="avatar-big text-center m-2" onClick={handleSelectionClick}>
-        <Image src={person.imgUrl} className="avatar-img rounded-circle" />
-        <p>{person.name}</p>
-        <p>{person.previousCommonShow}</p>
-      </div>
-    </Col>
+    <div className="avatar-big text-center" onClick={handleSelectionClick}>
+      <Image src={person.imgUrl} className="avatar-img rounded-circle" />
+      <p className="person-name">{person.name}</p>
+    </div>
   )
 }

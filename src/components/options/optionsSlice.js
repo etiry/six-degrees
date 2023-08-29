@@ -10,7 +10,7 @@ const getPersonInfo = (person, show) => {
   return {
     id: person.id,
     name: person.name,
-    imgUrl: person.image ? person.image.medium : null,
+    imgUrl: person.image ? person.image.medium : './anonymous.png',
     previousCommonShow: show,
     nextCommonShow: null
   }
@@ -33,10 +33,10 @@ const fetchCast = async (showId) => {
   return cast;
 };
 
-const getAllConnections = async (showIdArray) => {
-  let newConnections = [];
+const getUniqueConnections = async (showIdArray) => {
+  let uniqueConnections = [];
   while (showIdArray.length > 0) {
-    const existingConnections = newConnections.map(({ name }) => name);
+    const existingConnections = uniqueConnections.map(({ name }) => name);
     const showConnections = await fetchCast(showIdArray[showIdArray.length - 1]);
     const connectionsToAdd = showConnections.reduce((acc, person) => {
       if (!existingConnections.includes(person.name)) {
@@ -44,19 +44,17 @@ const getAllConnections = async (showIdArray) => {
       }
       return acc;
     }, []);
-    newConnections = newConnections.concat(connectionsToAdd);
+    uniqueConnections = uniqueConnections.concat(connectionsToAdd);
     showIdArray = showIdArray.slice(0, -1);
-    getAllConnections(showIdArray);
+    getUniqueConnections(showIdArray);
   }
 
-  return newConnections;
+  return uniqueConnections;
 };
 
 export const getConnections = createAsyncThunk('options/getConnections', async (personId) => {
   const showIds = await fetchShows(personId);
-
-  const firstDegreeConnections = getAllConnections(showIds);
-  
+  const firstDegreeConnections = getUniqueConnections(showIds);
   return firstDegreeConnections;
 });
 
@@ -65,9 +63,14 @@ export const optionsSlice = createSlice({
   initialState: {
     status: 'idle',
     error: null,
-    connections: []
+    connections: [],
+    currentSelections: []
   },
-  reducers: {},
+  reducers: {
+    internalSetSelections: (state, action) => {
+      state.currentSelections = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getConnections.pending, (state, action) => {
@@ -83,5 +86,15 @@ export const optionsSlice = createSlice({
       })
   }
 })
+
+const { internalSetSelections } = optionsSlice.actions;
+
+export const setCurrentSelections = () => {
+  return (dispatch, getState) => {
+    const currentSelections = getState().gameStatus.selections;
+    console.log(currentSelections);
+    dispatch(internalSetSelections(currentSelections));
+  };
+}
 
 export default optionsSlice.reducer;

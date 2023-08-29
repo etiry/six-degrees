@@ -1,10 +1,40 @@
 {
   "degreeSelections": [
-    {},
-    {},
-    {},
-    {},
-    {},
+    {
+      "id": null,
+      "name": null,
+      "imgUrl": "./anonymous.png",
+      "previousCommonShow": null,
+      "nextCommonShow": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "imgUrl": "./anonymous.png",
+      "previousCommonShow": null,
+      "nextCommonShow": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "imgUrl": "./anonymous.png",
+      "previousCommonShow": null,
+      "nextCommonShow": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "imgUrl": "./anonymous.png",
+      "previousCommonShow": null,
+      "nextCommonShow": null
+    },
+    {
+      "id": null,
+      "name": null,
+      "imgUrl": "./anonymous.png",
+      "previousCommonShow": null,
+      "nextCommonShow": null
+    },
     {
       "id": 33538,
       "name": "Kevin Bacon",

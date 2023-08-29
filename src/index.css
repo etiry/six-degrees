@@ -1,6 +1,6 @@
 .avatar-big {
-  height:100px;
-  width:100px;
+  height:125px;
+  width:125px;
 }
 
 .avatar-small {
@@ -15,12 +15,22 @@
 
 
 .avatar-img {
-width: 100%;
-height: 100%;
+width: 80%;
+height: 80%;
 -o-object-fit: cover;
 object-fit: cover;
+margin-bottom: 5%;
 }
 
 .rounded-circle {
 border-radius: 50%!important;
+}
+
+.show-name {
+  font-size: 14px;
+  font-style: italic;
+}
+
+.person-name {
+  line-height: 16px;
 }

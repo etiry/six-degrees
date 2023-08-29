@@ -27,10 +27,13 @@ const fetchShows = async (personId) => {
 const fetchCast = async (showId) => {
   const url = `${PROXY_URL}${ROOT_URL}/shows/${showId}?embed=cast`;
   const response = await axios.get(url);
-  const commonShow = response.data.name;
-  const cast = response.data._embedded.cast.map((castMember) => getPersonInfo(castMember.person, commonShow));
+  if (response.data.type === 'Scripted') {
+    const commonShow = response.data.name;
+    const cast = response.data._embedded.cast.map((castMember) => getPersonInfo(castMember.person, commonShow));
 
-  return cast;
+    return cast;
+  }
+  return null;
 };
 
 const getUniqueConnections = async (showIdArray) => {
@@ -38,13 +41,15 @@ const getUniqueConnections = async (showIdArray) => {
   while (showIdArray.length > 0) {
     const existingConnections = uniqueConnections.map(({ name }) => name);
     const showConnections = await fetchCast(showIdArray[showIdArray.length - 1]);
-    const connectionsToAdd = showConnections.reduce((acc, person) => {
-      if (!existingConnections.includes(person.name)) {
-        acc.push(person);
-      }
-      return acc;
-    }, []);
-    uniqueConnections = uniqueConnections.concat(connectionsToAdd);
+    if (showConnections) {
+      const connectionsToAdd = showConnections.reduce((acc, person) => {
+        if (!existingConnections.includes(person.name)) {
+          acc.push(person);
+        }
+        return acc;
+      }, []);
+      uniqueConnections = uniqueConnections.concat(connectionsToAdd);
+    }
     showIdArray = showIdArray.slice(0, -1);
     getUniqueConnections(showIdArray);
   }
@@ -54,7 +59,7 @@ const getUniqueConnections = async (showIdArray) => {
 
 export const getConnections = createAsyncThunk('options/getConnections', async (personId) => {
   const showIds = await fetchShows(personId);
-  const firstDegreeConnections = getUniqueConnections(showIds);
+  const firstDegreeConnections = await getUniqueConnections(showIds);
   return firstDegreeConnections;
 });
 
@@ -64,12 +69,8 @@ export const optionsSlice = createSlice({
     status: 'idle',
     error: null,
     connections: [],
-    currentSelections: []
   },
   reducers: {
-    internalSetSelections: (state, action) => {
-      state.currentSelections = action.payload;
-    },
   },
   extraReducers(builder) {
     builder
@@ -86,15 +87,5 @@ export const optionsSlice = createSlice({
       })
   }
 })
-
-const { internalSetSelections } = optionsSlice.actions;
-
-export const setCurrentSelections = () => {
-  return (dispatch, getState) => {
-    const currentSelections = getState().gameStatus.selections;
-    console.log(currentSelections);
-    dispatch(internalSetSelections(currentSelections));
-  };
-}
 
 export default optionsSlice.reducer;

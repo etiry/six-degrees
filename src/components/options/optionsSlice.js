@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import _ from 'lodash';
 
 const ROOT_URL = 'https://api.tvmaze.com';
 const PROXY_URL = 'https://corsproxy.io/?';
@@ -39,21 +40,15 @@ const fetchCast = async (showId) => {
 const getUniqueConnections = async (showIdArray) => {
   let uniqueConnections = [];
   while (showIdArray.length > 0) {
-    const existingConnections = uniqueConnections.map(({ name }) => name);
     const showConnections = await fetchCast(showIdArray[showIdArray.length - 1]);
     if (showConnections) {
-      const connectionsToAdd = showConnections.reduce((acc, person) => {
-        if (!existingConnections.includes(person.name)) {
-          acc.push(person);
-        }
-        return acc;
-      }, []);
-      uniqueConnections = uniqueConnections.concat(connectionsToAdd);
+      uniqueConnections = uniqueConnections.concat(showConnections);
     }
     showIdArray = showIdArray.slice(0, -1);
     getUniqueConnections(showIdArray);
   }
 
+  uniqueConnections = _.uniqBy(uniqueConnections, 'id');
   return uniqueConnections;
 };
 

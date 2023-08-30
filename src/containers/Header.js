@@ -21,8 +21,7 @@ function Header() {
     optionArray[Math.floor(Math.random() * optionArray.length)];
 
   const handleGetRandomClick = () => {
-    const randomFirstSelection = { ...getRandomOption(startingOptions) };
-    randomFirstSelection.selected = true;
+    const randomFirstSelection = getRandomOption(startingOptions);
     dispatch(updateDegree(randomFirstSelection));
     dispatch(getConnections(randomFirstSelection.id));
     dispatch(incrementCurrentDegree());

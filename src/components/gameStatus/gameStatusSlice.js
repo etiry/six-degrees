@@ -5,18 +5,26 @@ export const gameStatusSlice = createSlice({
   name: 'gameStatus',
   initialState: {
     currentDegreeIndex: 0,
-    selections: defaultStatus.degreeSelections
+    selections: defaultStatus.degreeSelections,
+    gameOver: false,
+    winner: false
   },
   reducers: {
-    incrementCurrentDegree: state => {
+    incrementCurrentDegree: (state) => {
       state.currentDegreeIndex += 1;
     },
     updateDegree: (state, action) => {
       state.selections[state.currentDegreeIndex] = action.payload;
+    },
+    resetGameStatus: (state) => {
+      state.selections = defaultStatus.degreeSelections;
+      state.currentDegreeIndex = 0;
+      state.winner = false;
+      state.gameOver = false;
     }
   }
 })
 
-export const { incrementCurrentDegree, updateDegree } = gameStatusSlice.actions;
+export const { incrementCurrentDegree, updateDegree, resetGameStatus } = gameStatusSlice.actions;
 
 export default gameStatusSlice.reducer;

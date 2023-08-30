@@ -66,6 +66,11 @@ export const optionsSlice = createSlice({
     connections: [],
   },
   reducers: {
+    resetOptions: (state) => {
+      state.connections = [];
+      state.status = 'idle';
+      state.error = null;
+    }
   },
   extraReducers(builder) {
     builder
@@ -82,5 +87,7 @@ export const optionsSlice = createSlice({
       })
   }
 })
+
+export const { resetOptions } = optionsSlice.actions;
 
 export default optionsSlice.reducer;

@@ -7,19 +7,4 @@ export default configureStore({
     gameStatus: gameStatusReducer,
     options: optionsReducer
   }
-})
-
-
-// src
-//  /app
-//    Store.js
-//  /components
-//    /gameStatus
-//      gameStatus.js
-//      gameStatusSlice.js
-//    /options
-//      options.js
-//      optionsSlice.js
-//  /containers
-//    Header.js
-//    Main.js
+});

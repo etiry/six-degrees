@@ -30,8 +30,14 @@ export const gameStatusSlice = createSlice({
       state.gameOver = true;
     }
   }
-})
+});
 
-export const { incrementCurrentDegree, updateDegree, resetGameStatus, declareWinner, declareLoser } = gameStatusSlice.actions;
+export const {
+  incrementCurrentDegree,
+  updateDegree,
+  resetGameStatus,
+  declareWinner,
+  declareLoser
+} = gameStatusSlice.actions;
 
 export default gameStatusSlice.reducer;

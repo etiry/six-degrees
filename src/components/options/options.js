@@ -1,42 +1,42 @@
 import { useSelector } from 'react-redux';
-import Person from '../Person';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Person from '../Person';
 
 const Options = () => {
-  const optionsStatus = useSelector(state => state.options.status);
-  const error = useSelector(state => state.options.error)
-  const connections = useSelector(state => state.options.connections);
-  const currentSelections = useSelector(state => state.gameStatus.selections);
-  const currentSelectionNames = currentSelections.map(({ name }) => name).slice(0, -1);
+  const status = useSelector((state) => state.options.status);
+  const error = useSelector((state) => state.options.error);
+  const connections = useSelector((state) => state.options.connections);
+  const currentSelections = useSelector((state) => state.gameStatus.selections);
+  const currentSelectionNames = currentSelections
+    .map(({ name }) => name)
+    .slice(0, -1);
 
-  const filteredConnections = connections.filter((person) => {
-    return !currentSelectionNames.includes(person.name);
-  })
+  const filteredConnections = connections.filter(
+    (person) => !currentSelectionNames.includes(person.name)
+  );
 
   let content;
 
-  if (optionsStatus === 'loading') {
+  if (status === 'loading') {
     content = <p>Loading...</p>;
-  } else if (optionsStatus === 'succeeded') {
-    content = filteredConnections.map((person) => 
+  } else if (status === 'succeeded') {
+    content = filteredConnections.map((person) => (
       <Col key={person.id} className="text-center">
         <Col>
-          <Person person={person} selected={false}/>
+          <Person person={person} selected={false} />
           <p className="show-name">{person.commonShow}</p>
         </Col>
       </Col>
-    );
-  } else if (optionsStatus === 'failed') {
+    ));
+  } else if (status === 'failed') {
     content = <div>{error}</div>;
   }
 
   return (
     <Container>
-      <Row>
-        {content}
-      </Row>
+      <Row>{content}</Row>
     </Container>
   );
 };

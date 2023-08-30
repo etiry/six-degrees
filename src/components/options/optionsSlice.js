@@ -7,20 +7,19 @@ const PROXY_URL = 'https://corsproxy.io/?';
 
 const getShowId = (showUrl) => showUrl.split('/').pop();
 
-const getPersonInfo = (person, show) => {
-  return {
-    id: person.id,
-    name: person.name,
-    imgUrl: person.image ? person.image.medium : './anonymous.png',
-    commonShow: show
-  }
-}
+const getPersonInfo = (person, show) => ({
+  id: person.id,
+  name: person.name,
+  imgUrl: person.image ? person.image.medium : './anonymous.png',
+  commonShow: show
+});
 
 const fetchShows = async (personId) => {
   const url = `${PROXY_URL}${ROOT_URL}/people/${personId}?embed=castcredits`;
   const response = await axios.get(url);
-  const showIds = response.data._embedded.castcredits.map((show) => getShowId(show._links.show.href));
-
+  const showIds = response.data._embedded.castcredits.map((show) =>
+    getShowId(show._links.show.href)
+  );
   return showIds;
 };
 
@@ -29,8 +28,9 @@ const fetchCast = async (showId) => {
   const response = await axios.get(url);
   if (response.data.type === 'Scripted') {
     const commonShow = response.data.name;
-    const cast = response.data._embedded.cast.map((castMember) => getPersonInfo(castMember.person, commonShow));
-
+    const cast = response.data._embedded.cast.map((castMember) =>
+      getPersonInfo(castMember.person, commonShow)
+    );
     return cast;
   }
   return null;
@@ -38,31 +38,37 @@ const fetchCast = async (showId) => {
 
 const getUniqueConnections = async (showIdArray) => {
   let uniqueConnections = [];
+
   while (showIdArray.length > 0) {
-    const showConnections = await fetchCast(showIdArray[showIdArray.length - 1]);
+    const showConnections = await fetchCast(
+      showIdArray[showIdArray.length - 1]
+    );
     if (showConnections) {
       uniqueConnections = uniqueConnections.concat(showConnections);
     }
-    showIdArray = showIdArray.slice(0, -1);
-    getUniqueConnections(showIdArray);
+    // const updatedShowIdArray = showIdArray.slice(0, -1);
+    getUniqueConnections(showIdArray.slice(0, -1));
   }
 
   uniqueConnections = _.uniqBy(uniqueConnections, 'id');
   return uniqueConnections;
 };
 
-export const getConnections = createAsyncThunk('options/getConnections', async (personId) => {
-  const showIds = await fetchShows(personId);
-  const firstDegreeConnections = await getUniqueConnections(showIds);
-  return firstDegreeConnections;
-});
+export const getConnections = createAsyncThunk(
+  'options/getConnections',
+  async (personId) => {
+    const showIds = await fetchShows(personId);
+    const firstDegreeConnections = await getUniqueConnections(showIds);
+    return firstDegreeConnections;
+  }
+);
 
 export const optionsSlice = createSlice({
   name: 'options',
   initialState: {
     status: 'idle',
     error: null,
-    connections: [],
+    connections: []
   },
   reducers: {
     resetOptions: (state) => {
@@ -73,19 +79,19 @@ export const optionsSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getConnections.pending, (state, action) => {
-        state.status = 'loading'
+      .addCase(getConnections.pending, (state) => {
+        state.status = 'loading';
       })
       .addCase(getConnections.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.connections = action.payload;
       })
       .addCase(getConnections.rejected, (state, action) => {
-        state.status = 'failed'
-        state.error = action.error.message
-      })
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   }
-})
+});
 
 export const { resetOptions } = optionsSlice.actions;
 

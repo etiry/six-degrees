@@ -4,43 +4,37 @@
       "id": null,
       "name": null,
       "imgUrl": "./anonymous.png",
-      "commonShow": null,
-      "selected": true
+      "commonShow": null
     },
     {
       "id": null,
       "name": null,
       "imgUrl": "./anonymous.png",
-      "commonShow": null,
-      "selected": true
+      "commonShow": null
     },
     {
       "id": null,
       "name": null,
       "imgUrl": "./anonymous.png",
-      "commonShow": null,
-      "selected": true
+      "commonShow": null
     },
     {
       "id": null,
       "name": null,
       "imgUrl": "./anonymous.png",
-      "commonShow": null,
-      "selected": true
+      "commonShow": null
     },
     {
       "id": null,
       "name": null,
       "imgUrl": "./anonymous.png",
-      "commonShow": null,
-      "selected": true
+      "commonShow": null
     },
     {
       "id": 33538,
       "name": "Kevin Bacon",
       "imgUrl": "https://static.tvmaze.com/uploads/images/medium_portrait/3/8833.jpg",
-      "commonShow": null,
-      "selected": true
+      "commonShow": null
     }
   ]
 }

@@ -14,7 +14,7 @@ const GameStatus = () => {
           <Col key={index} className="d-flex align-items-center">
             <Col><p className="show-name">{person.commonShow}</p></Col>
             <Col>
-              <Person person={person} />
+              <Person person={person} selected={true} />
             </Col>          
           </Col>
 

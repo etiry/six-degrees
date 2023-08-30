@@ -12,8 +12,7 @@ const getPersonInfo = (person, show) => {
     id: person.id,
     name: person.name,
     imgUrl: person.image ? person.image.medium : './anonymous.png',
-    commonShow: show,
-    selected: false
+    commonShow: show
   }
 }
 

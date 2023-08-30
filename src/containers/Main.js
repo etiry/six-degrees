@@ -8,11 +8,11 @@ import Options from '../components/options/options';
  */
 
 const Main = () => (
-  <>
+  <div className="bg">
     <GameStatus />
     <Options />
     <GameOverModal />
-  </>
+  </div>
 );
 
 export default Main;

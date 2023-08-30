@@ -54,12 +54,22 @@ function Header() {
     <Navbar className="bg-body-tertiary">
       <Container>
         <Navbar.Brand>Six Degrees</Navbar.Brand>
-        <Button variant="primary" onClick={handleGetRandomClick}>
-          Get random starting actor
-        </Button>
-        <Button variant="primary" onClick={handleResetClick}>
-          Reset game
-        </Button>
+        <div>
+          <Button
+            variant="custom"
+            className="custom-btn"
+            onClick={handleGetRandomClick}
+          >
+            Start game
+          </Button>
+          <Button
+            variant="custom"
+            className="custom-btn"
+            onClick={handleResetClick}
+          >
+            Reset game
+          </Button>
+        </div>
       </Container>
     </Navbar>
   );

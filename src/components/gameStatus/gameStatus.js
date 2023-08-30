@@ -13,7 +13,7 @@ const GameStatus = () => {
   const selections = useSelector((state) => state.gameStatus.selections);
 
   return (
-    <Container className="mb-5 text-center">
+    <Container className="mb-5 pt-5 text-center">
       <Row>
         {selections.map((person, index) => (
           <Col key={index} className="d-flex align-items-center">

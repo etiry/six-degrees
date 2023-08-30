@@ -24,7 +24,7 @@ const Options = () => {
       <Col key={person.id} className="text-center">
         <Col>
           <Person person={person} />
-          <p className="show-name">{person.previousCommonShow}</p>
+          <p className="show-name">{person.commonShow}</p>
         </Col>
       </Col>
     );

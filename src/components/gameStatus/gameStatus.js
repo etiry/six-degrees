@@ -12,7 +12,7 @@ const GameStatus = () => {
       <Row>
         {selections.map((person, index) =>
           <Col key={index} className="d-flex align-items-center">
-            <Col><p className="show-name">{person.previousCommonShow}</p></Col>
+            <Col><p className="show-name">{person.commonShow}</p></Col>
             <Col>
               <Person person={person} />
             </Col>          

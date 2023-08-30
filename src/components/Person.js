@@ -5,16 +5,26 @@ import { incrementCurrentDegree, updateDegree } from './gameStatus/gameStatusSli
 
 export default function Person ({ person }) {
   const dispatch = useDispatch();
-  const currentSelections = useSelector(state => state.gameStatus.selections);
   const currentDegree = useSelector(state => state.gameStatus.currentDegreeIndex);
 
   const handleSelectionClick = () => {
     if (currentDegree < 5) {
-      dispatch(updateDegree(person));
-      dispatch(getConnections(person.id, currentSelections));
+      const updatedPerson = {...person};
+      updatedPerson.selected = true;
+      dispatch(updateDegree(updatedPerson));
+      dispatch(getConnections(updatedPerson.id));
       dispatch(incrementCurrentDegree());
     }
   };
+
+  if (person.selected) {
+    return (
+      <div className="avatar-big text-center">
+        <Image src={person.imgUrl} className="avatar-img rounded-circle" />
+        <p className="person-name">{person.name}</p>
+      </div>      
+    )
+  }
 
   return (
     <div className="avatar-big text-center" onClick={handleSelectionClick}>

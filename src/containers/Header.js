@@ -17,6 +17,7 @@ function Header() {
 
   const handleGetRandomClick = () => {
     const randomFirstSelection = getRandomOption(startingOptions);
+    randomFirstSelection.selected = true;
     dispatch(updateDegree(randomFirstSelection));
     dispatch(getConnections(randomFirstSelection.id));
     dispatch(incrementCurrentDegree());

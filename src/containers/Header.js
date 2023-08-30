@@ -13,13 +13,28 @@ import {
   getConnections
 } from '../components/options/optionsSlice';
 
+/**
+ * Component for showing page header.
+ * @component
+ */
+
 function Header() {
   const dispatch = useDispatch();
   const { startingOptions } = defaultStartingOptions;
 
+  /**
+   * Select a random item from an array of person objects
+   * @param {array} optionArray Array of options
+   *
+   * @return {object} Person to act as starting point for game
+   */
   const getRandomOption = (optionArray) =>
     optionArray[Math.floor(Math.random() * optionArray.length)];
 
+  /**
+   * When button is clicked, selects a random option and
+   * updates game status and options components
+   */
   const handleGetRandomClick = () => {
     const randomFirstSelection = getRandomOption(startingOptions);
     dispatch(updateDegree(randomFirstSelection));
@@ -27,6 +42,9 @@ function Header() {
     dispatch(incrementCurrentDegree());
   };
 
+  /**
+   * When button is clicked, resets game status and options components
+   */
   const handleResetClick = () => {
     dispatch(resetGameStatus());
     dispatch(resetOptions());

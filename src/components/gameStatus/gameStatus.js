@@ -4,6 +4,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Person from '../Person';
 
+/**
+ * Component for showing the status of the game/actor selections.
+ * @component
+ */
+
 const GameStatus = () => {
   const selections = useSelector((state) => state.gameStatus.selections);
 

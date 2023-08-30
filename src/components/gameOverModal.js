@@ -4,11 +4,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { resetGameStatus } from './gameStatus/gameStatusSlice';
 import { resetOptions } from './options/optionsSlice';
 
+/**
+ * Component for showing a modal when the game is over.
+ * @component
+ */
+
 const GameOverModal = () => {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.gameStatus.gameOver);
   const winner = useSelector((state) => state.gameStatus.winner);
 
+  /**
+   * When modal is closed, resets game and options components
+   */
   const handleClose = () => {
     dispatch(resetGameStatus());
     dispatch(resetOptions());

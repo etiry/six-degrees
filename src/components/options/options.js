@@ -4,6 +4,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Person from '../Person';
 
+/**
+ * Component for showing options to select from at each turn.
+ * @component
+ */
+
 const Options = () => {
   const status = useSelector((state) => state.options.status);
   const error = useSelector((state) => state.options.error);
@@ -12,7 +17,6 @@ const Options = () => {
   const currentSelectionNames = currentSelections
     .map(({ name }) => name)
     .slice(0, -1);
-
   const filteredConnections = connections.filter(
     (person) => !currentSelectionNames.includes(person.name)
   );

@@ -5,8 +5,21 @@ import _ from 'lodash';
 const ROOT_URL = 'https://api.tvmaze.com';
 const PROXY_URL = 'https://corsproxy.io/?';
 
+/**
+ * Extracts show ID number from URL
+ * @param {string} showUrl A show URL
+ *
+ * @return {string} A show ID number
+ */
 const getShowId = (showUrl) => showUrl.split('/').pop();
 
+/**
+ * Creates a person object by extracting data from API request response
+ * @param {object} person An object representing a person
+ * @param {string} show Name of a show
+ *
+ * @return {object} An object representing a person
+ */
 const getPersonInfo = (person, show) => ({
   id: person.id,
   name: person.name,
@@ -14,6 +27,12 @@ const getPersonInfo = (person, show) => ({
   commonShow: show
 });
 
+/**
+ * Retrieves an array of show IDs representing the shows a person acted in
+ * @param {number} personId ID of a person
+ *
+ * @return {array} Array of show IDs
+ */
 const fetchShows = async (personId) => {
   const url = `${PROXY_URL}${ROOT_URL}/people/${personId}?embed=castcredits`;
   const response = await axios.get(url);
@@ -23,6 +42,12 @@ const fetchShows = async (personId) => {
   return showIds;
 };
 
+/**
+ * Retrieves an array of actors who acted in a particular show
+ * @param {string} showId ID of a show
+ *
+ * @return {array} Array of person objects or null
+ */
 const fetchCast = async (showId) => {
   const url = `${PROXY_URL}${ROOT_URL}/shows/${showId}?embed=cast`;
   const response = await axios.get(url);
@@ -36,6 +61,13 @@ const fetchCast = async (showId) => {
   return null;
 };
 
+/**
+ * Produces a list of unique actors who are first degree connections
+ * to a particular actor
+ * @param {array} showIdArray Array of show IDs
+ *
+ * @return {array} Array of unique person objects
+ */
 const getUniqueConnections = async (showIdArray) => {
   let uniqueConnections = [];
 
@@ -54,6 +86,14 @@ const getUniqueConnections = async (showIdArray) => {
   return uniqueConnections;
 };
 
+/**
+ * Makes an API request for a particular actor,
+ * then makes an API reuqest for each show they were on,
+ * then returns an array of unique first degree connections
+ * @param {number} personId ID of a person
+ *
+ * @return {array} Array of unique person objects
+ */
 export const getConnections = createAsyncThunk(
   'options/getConnections',
   async (personId) => {

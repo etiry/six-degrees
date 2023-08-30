@@ -10,6 +10,11 @@ import {
   declareLoser
 } from './gameStatus/gameStatusSlice';
 
+/**
+ * Component for showing image, name, and show for each person.
+ * @component
+ */
+
 export default function Person({ person, selected }) {
   const dispatch = useDispatch();
   const currentDegree = useSelector(
@@ -20,9 +25,23 @@ export default function Person({ person, selected }) {
       state.gameStatus.selections[state.gameStatus.selections.length - 1]
   );
 
+  /**
+   * Checks if the selected actor is the same as the target actor
+   * @param {object} selectedPerson Selected person
+   * @param {object} targetPerson Target person
+   *
+   * @return {boolean}
+   */
   const checkWinner = (selectedPerson, targetPerson) =>
     selectedPerson.id === targetPerson.id;
 
+  /**
+   * When person is clicked, checks if there is a winner.
+   * If so, declare winner.
+   * If not, if there are still plays left, updates the game status
+   * and options components.
+   * If there are no plays left, declare loser.
+   */
   const handleSelectionClick = () => {
     if (checkWinner(person, target)) {
       dispatch(declareWinner());

@@ -78,8 +78,9 @@ const getUniqueConnections = async (showIdArray) => {
     if (showConnections) {
       uniqueConnections = uniqueConnections.concat(showConnections);
     }
-    // const updatedShowIdArray = showIdArray.slice(0, -1);
-    getUniqueConnections(showIdArray.slice(0, -1));
+    // eslint-disable-next-line no-param-reassign
+    showIdArray = showIdArray.slice(0, -1);
+    getUniqueConnections(showIdArray);
   }
 
   uniqueConnections = _.uniqBy(uniqueConnections, 'id');

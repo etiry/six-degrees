@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import defaultStartingOptions from './defaultStartingOptions.json';
 import {
@@ -58,16 +60,20 @@ function Header() {
   return (
     <Navbar className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand>Six Degrees</Navbar.Brand>
+        <LinkContainer to="/">
+          <Navbar.Brand>Six Degrees</Navbar.Brand>
+        </LinkContainer>
         <div>
-          <Button
-            variant="custom"
-            className="custom-btn"
-            onClick={handleStartGameClick}
-            disabled={gameInProgress}
-          >
-            Start game
-          </Button>
+          <LinkContainer to="/">
+            <Button
+              variant="custom"
+              className="custom-btn"
+              onClick={handleStartGameClick}
+              disabled={gameInProgress}
+            >
+              Start game
+            </Button>
+          </LinkContainer>
           <Button
             variant="custom"
             className="custom-btn"
@@ -75,6 +81,14 @@ function Header() {
           >
             Reset game
           </Button>
+        </div>
+        <div className="d-flex">
+          <LinkContainer to="/how-to-play">
+            <Nav.Link className="p-3">How to Play</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/about">
+            <Nav.Link className="p-3">About</Nav.Link>
+          </LinkContainer>
         </div>
       </Container>
     </Navbar>

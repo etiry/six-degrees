@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
@@ -6,6 +6,7 @@ import defaultStartingOptions from './defaultStartingOptions.json';
 import {
   incrementCurrentDegree,
   updateDegree,
+  startGame,
   resetGameStatus
 } from '../components/gameStatus/gameStatusSlice';
 import {
@@ -21,6 +22,9 @@ import {
 function Header() {
   const dispatch = useDispatch();
   const { startingOptions } = defaultStartingOptions;
+  const gameInProgress = useSelector(
+    (state) => state.gameStatus.gameInProgress
+  );
 
   /**
    * Select a random item from an array of person objects
@@ -35,7 +39,8 @@ function Header() {
    * When button is clicked, selects a random option and
    * updates game status and options components
    */
-  const handleGetRandomClick = () => {
+  const handleStartGameClick = () => {
+    dispatch(startGame());
     const randomFirstSelection = getRandomOption(startingOptions);
     dispatch(updateDegree(randomFirstSelection));
     dispatch(getConnections(randomFirstSelection.id));
@@ -58,7 +63,8 @@ function Header() {
           <Button
             variant="custom"
             className="custom-btn"
-            onClick={handleGetRandomClick}
+            onClick={handleStartGameClick}
+            disabled={gameInProgress}
           >
             Start game
           </Button>

@@ -6,6 +6,7 @@ export const gameStatusSlice = createSlice({
   initialState: {
     currentDegreeIndex: 0,
     selections: defaultStatus.degreeSelections,
+    gameInProgress: false,
     gameOver: false,
     winner: false
   },
@@ -16,11 +17,15 @@ export const gameStatusSlice = createSlice({
     updateDegree: (state, action) => {
       state.selections[state.currentDegreeIndex] = action.payload;
     },
+    startGame: (state) => {
+      state.gameInProgress = true;
+    },
     resetGameStatus: (state) => {
       state.selections = defaultStatus.degreeSelections;
       state.currentDegreeIndex = 0;
-      state.winner = false;
+      state.gameInProgress = false;
       state.gameOver = false;
+      state.winner = false;
     },
     declareWinner: (state) => {
       state.winner = true;
@@ -35,6 +40,7 @@ export const gameStatusSlice = createSlice({
 export const {
   incrementCurrentDegree,
   updateDegree,
+  startGame,
   resetGameStatus,
   declareWinner,
   declareLoser

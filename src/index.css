@@ -39,3 +39,7 @@ border-radius: 50%!important;
   padding: 6px 12px;
   margin: 8px;
 }
+
+.white-bg {
+  background-color: rgb(255, 255, 255, 0.3)
+}

@@ -8,7 +8,7 @@ import Options from '../components/options/options';
  */
 
 const Main = () => (
-  <div className="bg">
+  <div className="bg p-3">
     <GameStatus />
     <Options />
     <GameOverModal />

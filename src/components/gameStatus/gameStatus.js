@@ -12,20 +12,35 @@ import Person from '../Person';
 const GameStatus = () => {
   const selections = useSelector((state) => state.gameStatus.selections);
 
-  return (
-    <Container className="mb-5 pt-5 text-center">
-      <Row>
-        {selections.map((person, index) => (
-          <Col key={index} className="d-flex align-items-center">
-            <Col>
-              <p className="show-name">{person.commonShow}</p>
-            </Col>
-            <Col>
-              <Person person={person} selected />
-            </Col>
+  const content = selections.map((person, index) => {
+    if (index === 0) {
+      return (
+        <Col key={index} className="d-flex align-items-center">
+          <Col>
+            <Person person={person} selected />
           </Col>
-        ))}
+        </Col>
+      );
+    }
+
+    return (
+      <Col key={index} className="d-flex align-items-center">
+        <Col>
+          <p className="show-name">{person.commonShow}</p>
+        </Col>
+        <Col>
+          <Person person={person} selected />
+        </Col>
+      </Col>
+    );
+  });
+
+  return (
+    <Container className="mb-5 p-5 text-center white-bg rounded">
+      <Row>
+        <h4 className="pb-3">Here are your current selections:</h4>
       </Row>
+      <Row>{content}</Row>
     </Container>
   );
 };

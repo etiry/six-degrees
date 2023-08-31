@@ -74,13 +74,15 @@ function Header() {
               Start game
             </Button>
           </LinkContainer>
-          <Button
-            variant="custom"
-            className="custom-btn"
-            onClick={handleResetClick}
-          >
-            Reset game
-          </Button>
+          <LinkContainer to="/">
+            <Button
+              variant="custom"
+              className="custom-btn"
+              onClick={handleResetClick}
+            >
+              Reset game
+            </Button>
+          </LinkContainer>
         </div>
         <div className="d-flex">
           <LinkContainer to="/how-to-play">

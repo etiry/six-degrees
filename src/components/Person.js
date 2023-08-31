@@ -15,7 +15,7 @@ import {
  * @component
  */
 
-export default function Person({ person, selected }) {
+const Person = ({ person, selected }) => {
   const dispatch = useDispatch();
   const currentDegree = useSelector(
     (state) => state.gameStatus.currentDegreeIndex
@@ -74,7 +74,7 @@ export default function Person({ person, selected }) {
       <p className="person-name">{person.name}</p>
     </div>
   );
-}
+};
 
 Person.propTypes = {
   person: PropTypes.shape({
@@ -85,3 +85,5 @@ Person.propTypes = {
   }),
   selected: PropTypes.bool
 };
+
+export default Person;

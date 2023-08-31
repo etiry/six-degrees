@@ -21,7 +21,7 @@ import {
  * @component
  */
 
-function Header() {
+const Header = () => {
   const dispatch = useDispatch();
   const { startingOptions } = defaultStartingOptions;
   const gameInProgress = useSelector(
@@ -95,6 +95,6 @@ function Header() {
       </Container>
     </Navbar>
   );
-}
+};
 
 export default Header;

@@ -20,12 +20,21 @@ const getShowId = (showUrl) => showUrl.split('/').pop();
  *
  * @return {object} An object representing a person
  */
-const getPersonInfo = (person, show) => ({
+const getPersonInfo = (person, show = null) => ({
   id: person.id,
   name: person.name,
   imgUrl: person.image ? person.image.medium : './anonymous.png',
   commonShow: show
 });
+
+export const fetchPeople = async (searchTerm) => {
+  const url = `${PROXY_URL}${ROOT_URL}/search/people?q=${searchTerm}`;
+  const response = await axios.get(url);
+  const results = response.data
+    .slice(0, 5)
+    .map((result) => getPersonInfo(result.person));
+  return results;
+};
 
 /**
  * Retrieves an array of show IDs representing the shows a person acted in

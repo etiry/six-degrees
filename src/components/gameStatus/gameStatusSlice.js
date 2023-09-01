@@ -33,6 +33,9 @@ export const gameStatusSlice = createSlice({
     },
     declareLoser: (state) => {
       state.gameOver = true;
+    },
+    changeTarget: (state, action) => {
+      state.selections[state.selections.length - 1] = action.payload;
     }
   }
 });
@@ -43,7 +46,8 @@ export const {
   startGame,
   resetGameStatus,
   declareWinner,
-  declareLoser
+  declareLoser,
+  changeTarget
 } = gameStatusSlice.actions;
 
 export default gameStatusSlice.reducer;

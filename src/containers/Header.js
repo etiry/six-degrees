@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import Container from 'react-bootstrap/Container';
@@ -15,6 +16,7 @@ import {
   resetOptions,
   getConnections
 } from '../components/options/optionsSlice';
+import ChangeTargetModal from '../components/changeTargetModal';
 
 /**
  * Component for showing page header.
@@ -27,6 +29,7 @@ const Header = () => {
   const gameInProgress = useSelector(
     (state) => state.gameStatus.gameInProgress
   );
+  const [showModal, setShowModal] = useState(false);
 
   /**
    * Select a random item from an array of person objects
@@ -57,43 +60,61 @@ const Header = () => {
     dispatch(resetOptions());
   };
 
+  /**
+   * When button is clicked, open modal to allow player to change
+   * target actor
+   */
+  const handleChangeTargetClick = () => {
+    setShowModal(true);
+  };
+
   return (
-    <Navbar className="bg-body-tertiary">
-      <Container>
-        <LinkContainer to="/">
-          <Navbar.Brand>Six Degrees of TV</Navbar.Brand>
-        </LinkContainer>
-        <div>
+    <>
+      <Navbar className="bg-body-tertiary">
+        <Container>
           <LinkContainer to="/">
+            <Navbar.Brand>Six Degrees of TV</Navbar.Brand>
+          </LinkContainer>
+          <div>
+            <LinkContainer to="/">
+              <Button
+                variant="custom"
+                className="custom-btn"
+                onClick={handleStartGameClick}
+                disabled={gameInProgress}
+              >
+                Start game
+              </Button>
+            </LinkContainer>
+            <LinkContainer to="/">
+              <Button
+                variant="custom"
+                className="custom-btn"
+                onClick={handleResetClick}
+              >
+                Reset game
+              </Button>
+            </LinkContainer>
             <Button
               variant="custom"
               className="custom-btn"
-              onClick={handleStartGameClick}
-              disabled={gameInProgress}
+              onClick={handleChangeTargetClick}
             >
-              Start game
+              Change target actor
             </Button>
-          </LinkContainer>
-          <LinkContainer to="/">
-            <Button
-              variant="custom"
-              className="custom-btn"
-              onClick={handleResetClick}
-            >
-              Reset game
-            </Button>
-          </LinkContainer>
-        </div>
-        <div className="d-flex">
-          <LinkContainer to="/how-to-play">
-            <Nav.Link className="p-3">How to Play</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to="/about">
-            <Nav.Link className="p-3">About</Nav.Link>
-          </LinkContainer>
-        </div>
-      </Container>
-    </Navbar>
+          </div>
+          <div className="d-flex">
+            <LinkContainer to="/how-to-play">
+              <Nav.Link className="p-3">How to Play</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/about">
+              <Nav.Link className="p-3">About</Nav.Link>
+            </LinkContainer>
+          </div>
+        </Container>
+      </Navbar>
+      <ChangeTargetModal showModal={showModal} setShowModal={setShowModal} />
+    </>
   );
 };
 

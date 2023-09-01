@@ -18,6 +18,27 @@ const Instructions = () => (
     </Row>
     <Row>
       <Col className="col-6 offset-3">
+      <p>
+          According to 
+          <a href="https://en.wikipedia.org/wiki/Six_degrees_of_separation">
+            Wikipedia
+          </a>
+          , "Six degrees of separation is the idea that all people are six or
+          fewer social connections away from each other. As a result, a chain of
+          "friend of a friend" statements can be made to connect any two people
+          in a maximum of six steps."
+        </p>
+        <p>
+          This idea was later applied to a game called Six Degrees of Kevin
+          Bacon, where the aim is "to arbitrarily choose an actor and then
+          connect them to another actor via a film that both actors have
+          appeared in together, repeating this process to try to find the
+          shortest path that ultimately leads to prolific American actor Kevin
+          Bacon." 
+          <a href="https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon">
+            (Wikipedia)
+          </a>
+        </p>
         <ul>
         <li>
             The goal of the game is to connect a randomly selected actor

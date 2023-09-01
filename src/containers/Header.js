@@ -61,7 +61,7 @@ const Header = () => {
     <Navbar className="bg-body-tertiary">
       <Container>
         <LinkContainer to="/">
-          <Navbar.Brand>Six Degrees</Navbar.Brand>
+          <Navbar.Brand>Six Degrees of TV</Navbar.Brand>
         </LinkContainer>
         <div>
           <LinkContainer to="/">

@@ -42,7 +42,8 @@ border-radius: 50%!important;
   line-height: 16px;
 }
 
-.custom-btn {
+.custom-btn,
+.custom-btn.active {
   background: #33658a;
   color: #fff;
   border-radius: 8px;

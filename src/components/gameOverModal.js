@@ -35,7 +35,7 @@ const GameOverModal = () => {
       </Modal.Header>
       <Modal.Body>{content}</Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={handleClose}>
+        <Button variant="custom" className="custom-btn" onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>

@@ -95,13 +95,15 @@ const Header = () => {
                 Reset game
               </Button>
             </LinkContainer>
-            <Button
-              variant="custom"
-              className="custom-btn"
-              onClick={handleChangeTargetClick}
-            >
-              Change target actor
-            </Button>
+            <LinkContainer to="/">
+              <Button
+                variant="custom"
+                className="custom-btn"
+                onClick={handleChangeTargetClick}
+              >
+                Change target actor
+              </Button>
+            </LinkContainer>
           </div>
           <div className="d-flex">
             <LinkContainer to="/how-to-play">

@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
+import { useEffect } from 'react';
 import { getConnections } from './options/optionsSlice';
 import {
   incrementCurrentDegree,
@@ -24,6 +25,7 @@ const Person = ({ person, selected }) => {
     (state) =>
       state.gameStatus.selections[state.gameStatus.selections.length - 1]
   );
+  const options = useSelector((state) => state.options.connections);
 
   /**
    * Checks if the selected actor is the same as the target actor
@@ -32,8 +34,8 @@ const Person = ({ person, selected }) => {
    *
    * @return {boolean}
    */
-  const checkWinner = (selectedPerson, targetPerson) =>
-    selectedPerson.id === targetPerson.id;
+  const checkWinner = (targetPerson) =>
+    options.find((option) => option.id === targetPerson.id);
 
   /**
    * When person is clicked, checks if there is a winner.
@@ -43,16 +45,20 @@ const Person = ({ person, selected }) => {
    * If there are no plays left, declare loser.
    */
   const handleSelectionClick = () => {
-    if (checkWinner(person, target)) {
-      dispatch(declareWinner());
-    } else if (currentDegree < 5) {
-      dispatch(updateDegree(person));
-      dispatch(getConnections(person.id));
-      dispatch(incrementCurrentDegree());
+    dispatch(updateDegree(person));
+    dispatch(getConnections(person.id));
+    dispatch(incrementCurrentDegree());
+  };
+
+  useEffect(() => {
+    if (currentDegree < 5) {
+      if (checkWinner(target)) {
+        dispatch(declareWinner());
+      }
     } else {
       dispatch(declareLoser());
     }
-  };
+  }, [options]);
 
   if (selected) {
     return (

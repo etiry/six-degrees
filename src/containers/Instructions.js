@@ -42,8 +42,11 @@ const Instructions = () => (
         <ul>
         <li>
             The goal of the game is to connect a randomly selected actor
-            to Kevin Bacon using connections defined by being a cast
-            member of the same TV show in six connections or less.
+            to a target actor using connections defined by being a cast
+            member of the same TV show, in six connections or less. The
+            target actor defaults to Kevin Bacon, but you can change it
+            by clicking the "Change target actor" button and searching 
+            for the actor you want.
           </li>
           <li>
             When you click "Start Game", an actor will be randomly selected
@@ -64,7 +67,10 @@ const Instructions = () => (
             You can only select an actor once.
           </li>
           <li>
-            Repeat until you either run out of plays or you find Kevin Bacon!
+            Repeat until you either run out of plays or you find your target!
+            The game will automatically search for your target actor after 
+            each play to check whether they are in the current options. If 
+            they are, you've won!
           </li>
         </ul>
         <Link to="/">Back to Game</Link>

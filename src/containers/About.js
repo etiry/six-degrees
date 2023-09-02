@@ -29,7 +29,7 @@ const About = () => (
             React
           </li>
           <li>
-            Redux
+            Redux Toolkit
           </li>
         </ul>
         <h6>Attributions</h6>

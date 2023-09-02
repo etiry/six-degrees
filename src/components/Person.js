@@ -78,6 +78,7 @@ const Person = ({ person, selected }) => {
     >
       <Image src={person.imgUrl} className="avatar-img rounded-circle" />
       <p className="person-name">{person.name}</p>
+      <p className="show-name">{person.commonShow}</p>
     </div>
   );
 };
@@ -87,7 +88,7 @@ Person.propTypes = {
     id: PropTypes.number,
     imgUrl: PropTypes.string,
     name: PropTypes.string,
-    show: PropTypes.string
+    commonShow: PropTypes.string
   }),
   selected: PropTypes.bool
 };

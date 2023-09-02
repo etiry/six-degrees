@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
 import GameOverModal from '../components/gameOverModal';
 import GameStatus from '../components/gameStatus/gameStatus';
 import Options from '../components/options/options';
@@ -11,7 +12,7 @@ import About from './About';
  */
 
 const Main = () => (
-  <div className="bg p-3">
+  <Container fluid className="p-3">
     <Routes>
       <Route
         path="/"
@@ -26,7 +27,7 @@ const Main = () => (
       <Route path="/how-to-play" element={<Instructions />} />
       <Route path="/about" element={<About />} />
     </Routes>
-  </div>
+  </Container>
 );
 
 export default Main;

@@ -27,11 +27,8 @@ const Options = () => {
     content = <p>Loading...</p>;
   } else if (status === 'succeeded') {
     content = filteredConnections.map((person) => (
-      <Col key={person.id} className="text-center">
-        <Col>
-          <Person person={person} selected={false} />
-          <p className="show-name">{person.commonShow}</p>
-        </Col>
+      <Col key={person.id} className="text-center mb-5">
+        <Person person={person} selected={false} />
       </Col>
     ));
   } else if (status === 'failed') {

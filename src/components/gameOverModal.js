@@ -36,7 +36,7 @@ const GameOverModal = () => {
         <>
           <p>You won the game!</p>
           <p>
-            You went from {selections[0].name} to
+            You went from {selections[0].name} to{' '}
             {selections[selections.length - 1].name} in {plays} plays!
           </p>
         </>

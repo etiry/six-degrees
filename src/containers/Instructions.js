@@ -19,7 +19,7 @@ const Instructions = () => (
     <Row>
       <Col className="col-6 offset-3">
       <p>
-          According to 
+          According to {' '}
           <a href="https://en.wikipedia.org/wiki/Six_degrees_of_separation">
             Wikipedia
           </a>
@@ -34,7 +34,7 @@ const Instructions = () => (
           connect them to another actor via a film that both actors have
           appeared in together, repeating this process to try to find the
           shortest path that ultimately leads to prolific American actor Kevin
-          Bacon." 
+          Bacon."{' '}
           <a href="https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon">
             (Wikipedia)
           </a>

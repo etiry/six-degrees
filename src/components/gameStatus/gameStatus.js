@@ -15,7 +15,7 @@ const GameStatus = () => {
   const content = selections.map((person, index) => {
     if (index === 0) {
       return (
-        <Col key={index} className="d-flex align-items-center">
+        <Col key={index} className="d-flex align-items-center flex-grow-0">
           <Col>
             <Person person={person} selected />
           </Col>

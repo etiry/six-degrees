@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useEffect } from 'react';
-import Person from './person';
+import Person from './Person';
 import { declareWinner, declareLoser } from '../slices/gameStatusSlice';
 import { checkWinner } from '../utils/utils';
 

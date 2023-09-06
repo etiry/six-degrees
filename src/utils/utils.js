@@ -1,9 +1,54 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import _ from 'lodash';
 
 const ROOT_URL = 'https://api.tvmaze.com';
 const PROXY_URL = 'https://corsproxy.io/?';
+
+/**
+ * Select a random item from an array of person objects
+ * @param {array} optionArray Array of options
+ *
+ * @return {object} Person to act as starting point for game
+ */
+const getRandomOption = (optionArray) =>
+  optionArray[Math.floor(Math.random() * optionArray.length)];
+
+/**
+ * Get number of plays to win
+ * @param {array} currentGameStatus Array of current game selections
+ *
+ * @return {number} Number of plays
+ */
+const getPlays = (currentGameStatus) => {
+  currentGameStatus.reduce((acc, selection) => {
+    if (selection.name) {
+      return acc + 1;
+    }
+    return acc;
+  }, -1);
+};
+
+/**
+ * Filters out existing selections from connections array
+ * @param {array} currentSelections Array of current game selection (person objects)
+ * @param {array} connections Array of connections (person objects)
+ *
+ * @return {array} Array of filtered connections (person objects)
+ */
+const filterConnections = (currentSelections, connections) => {
+  const names = currentSelections.map(({ name }) => name).slice(0, -1);
+  return connections.filter((person) => !names.includes(person.name));
+};
+
+/**
+ * Checks if the selected actor is the same as the target actor
+ * @param {object} selectedPerson Selected person
+ * @param {object} targetPerson Target person
+ *
+ * @return {boolean}
+ */
+const checkWinner = (targetPerson, connections) =>
+  connections.find((connection) => connection.id === targetPerson.id);
 
 /**
  * Extracts show ID number from URL
@@ -27,7 +72,7 @@ const getPersonInfo = (person, show = null) => ({
   commonShow: show
 });
 
-export const fetchPeople = async (searchTerm) => {
+const fetchPeople = async (searchTerm) => {
   const url = `${PROXY_URL}${ROOT_URL}/search/people?q=${searchTerm}`;
   const response = await axios.get(url);
   const results = response.data
@@ -96,53 +141,12 @@ const getUniqueConnections = async (showIdArray) => {
   return uniqueConnections;
 };
 
-/**
- * Makes an API request for a particular actor,
- * then makes an API reuqest for each show they were on,
- * then returns an array of unique first degree connections
- * @param {number} personId ID of a person
- *
- * @return {array} Array of unique person objects
- */
-export const getConnections = createAsyncThunk(
-  'options/getConnections',
-  async (personId) => {
-    const showIds = await fetchShows(personId);
-    const firstDegreeConnections = await getUniqueConnections(showIds);
-    return firstDegreeConnections;
-  }
-);
-
-export const optionsSlice = createSlice({
-  name: 'options',
-  initialState: {
-    status: 'idle',
-    error: null,
-    connections: []
-  },
-  reducers: {
-    resetOptions: (state) => {
-      state.connections = [];
-      state.status = 'idle';
-      state.error = null;
-    }
-  },
-  extraReducers(builder) {
-    builder
-      .addCase(getConnections.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(getConnections.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.connections = action.payload;
-      })
-      .addCase(getConnections.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      });
-  }
-});
-
-export const { resetOptions } = optionsSlice.actions;
-
-export default optionsSlice.reducer;
+export {
+  getRandomOption,
+  getPlays,
+  filterConnections,
+  checkWinner,
+  fetchPeople,
+  fetchShows,
+  getUniqueConnections
+};

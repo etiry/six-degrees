@@ -2,7 +2,8 @@ import { useSelector } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Person from '../Person';
+import Person from './person';
+import { filterConnections } from '../utils/utils';
 
 /**
  * Component for showing options to select from at each turn.
@@ -14,12 +15,7 @@ const Options = () => {
   const error = useSelector((state) => state.options.error);
   const connections = useSelector((state) => state.options.connections);
   const currentSelections = useSelector((state) => state.gameStatus.selections);
-  const currentSelectionNames = currentSelections
-    .map(({ name }) => name)
-    .slice(0, -1);
-  const filteredConnections = connections.filter(
-    (person) => !currentSelectionNames.includes(person.name)
-  );
+  const filteredConnections = filterConnections(currentSelections, connections);
 
   let content;
 

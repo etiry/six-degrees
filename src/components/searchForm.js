@@ -7,8 +7,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchPeople } from './options/optionsSlice';
-import { changeTarget } from './gameStatus/gameStatusSlice';
+import { fetchPeople } from '../utils/utils';
+import { changeTarget } from '../slices/gameStatusSlice';
 
 function SearchForm({ setShowModal }) {
   const dispatch = useDispatch();

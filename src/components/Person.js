@@ -1,15 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
-import { useEffect } from 'react';
-import { getConnections } from './options/optionsSlice';
+import { getConnections } from '../slices/optionsSlice';
 import {
   incrementCurrentDegree,
-  updateDegree,
-  declareWinner,
-  declareLoser
-} from './gameStatus/gameStatusSlice';
+  updateDegree
+} from '../slices/gameStatusSlice';
 
 /**
  * Component for showing image, name, and show for each person.
@@ -18,47 +15,16 @@ import {
 
 const Person = ({ person, selected }) => {
   const dispatch = useDispatch();
-  const currentDegree = useSelector(
-    (state) => state.gameStatus.currentDegreeIndex
-  );
-  const target = useSelector(
-    (state) =>
-      state.gameStatus.selections[state.gameStatus.selections.length - 1]
-  );
-  const options = useSelector((state) => state.options.connections);
 
   /**
-   * Checks if the selected actor is the same as the target actor
-   * @param {object} selectedPerson Selected person
-   * @param {object} targetPerson Target person
-   *
-   * @return {boolean}
-   */
-  const checkWinner = (targetPerson) =>
-    options.find((option) => option.id === targetPerson.id);
-
-  /**
-   * When person is clicked, checks if there is a winner.
-   * If so, declare winner.
-   * If not, if there are still plays left, updates the game status
-   * and options components.
-   * If there are no plays left, declare loser.
+   * When person is clicked, updates the game status
+   * gets connections of selected person.
    */
   const handleSelectionClick = () => {
     dispatch(updateDegree(person));
     dispatch(getConnections(person.id));
     dispatch(incrementCurrentDegree());
   };
-
-  useEffect(() => {
-    if (currentDegree < 5) {
-      if (checkWinner(target)) {
-        dispatch(declareWinner());
-      }
-    } else {
-      dispatch(declareLoser());
-    }
-  }, [options]);
 
   if (selected) {
     return (

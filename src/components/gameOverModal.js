@@ -1,8 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetGameStatus } from './gameStatus/gameStatusSlice';
-import { resetOptions } from './options/optionsSlice';
+import { resetGameStatus } from '../slices/gameStatusSlice';
+import { resetOptions } from '../slices/optionsSlice';
+import { getPlays } from '../utils/utils';
 
 /**
  * Component for showing a modal when the game is over.
@@ -14,13 +15,7 @@ const GameOverModal = () => {
   const show = useSelector((state) => state.gameStatus.gameOver);
   const winner = useSelector((state) => state.gameStatus.winner);
   const selections = useSelector((state) => state.gameStatus.selections);
-
-  const plays = selections.reduce((acc, selection) => {
-    if (selection.name) {
-      return acc + 1;
-    }
-    return acc;
-  }, -1);
+  const plays = getPlays(selections);
 
   /**
    * When modal is closed, resets game and options components

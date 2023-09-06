@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import defaultStatus from './defaultStatus.json';
+import defaultStatus from '../assets/defaultStatus.json';
 
 export const gameStatusSlice = createSlice({
   name: 'gameStatus',

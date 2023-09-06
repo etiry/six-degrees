@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import gameStatusReducer from '../components/gameStatus/gameStatusSlice';
-import optionsReducer from '../components/options/optionsSlice';
+import gameStatusReducer from '../slices/gameStatusSlice';
+import optionsReducer from '../slices/optionsSlice';
 
 export default configureStore({
   reducer: {

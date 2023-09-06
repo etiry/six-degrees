@@ -1,8 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Person from '../Person';
+import { useEffect } from 'react';
+import Person from './person';
+import { declareWinner, declareLoser } from '../slices/gameStatusSlice';
+import { checkWinner } from '../utils/utils';
 
 /**
  * Component for showing the status of the game/actor selections.
@@ -10,7 +13,33 @@ import Person from '../Person';
  */
 
 const GameStatus = () => {
+  const dispatch = useDispatch();
   const selections = useSelector((state) => state.gameStatus.selections);
+  const currentDegree = useSelector(
+    (state) => state.gameStatus.currentDegreeIndex
+  );
+  const target = useSelector(
+    (state) =>
+      state.gameStatus.selections[state.gameStatus.selections.length - 1]
+  );
+  const options = useSelector((state) => state.options.connections);
+
+  /**
+   * When options state changes, checks to see what play it
+   * is. If there are still plays left, checks if target
+   * actor is included in options. If so, declares winner.
+   * If no plays left, declares loser.
+   */
+  useEffect(() => {
+    if (currentDegree < 5) {
+      if (checkWinner(target, options)) {
+        dispatch(declareWinner());
+      }
+    } else {
+      dispatch(declareLoser());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [options]);
 
   const content = selections.map((person, index) => {
     if (index === 0) {

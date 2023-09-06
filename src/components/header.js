@@ -5,18 +5,16 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
-import defaultStartingOptions from './defaultStartingOptions.json';
+import defaultStartingOptions from '../assets/defaultStartingOptions.json';
 import {
   incrementCurrentDegree,
   updateDegree,
   startGame,
   resetGameStatus
-} from '../components/gameStatus/gameStatusSlice';
-import {
-  resetOptions,
-  getConnections
-} from '../components/options/optionsSlice';
-import ChangeTargetModal from '../components/changeTargetModal';
+} from '../slices/gameStatusSlice';
+import { resetOptions, getConnections } from '../slices/optionsSlice';
+import ChangeTargetModal from './changeTargetModal';
+import { getRandomOption } from '../utils/utils';
 
 /**
  * Component for showing page header.
@@ -30,15 +28,6 @@ const Header = () => {
     (state) => state.gameStatus.gameInProgress
   );
   const [showModal, setShowModal] = useState(false);
-
-  /**
-   * Select a random item from an array of person objects
-   * @param {array} optionArray Array of options
-   *
-   * @return {object} Person to act as starting point for game
-   */
-  const getRandomOption = (optionArray) =>
-    optionArray[Math.floor(Math.random() * optionArray.length)];
 
   /**
    * When button is clicked, selects a random option and

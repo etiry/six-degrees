@@ -32,7 +32,7 @@ const Options = () => {
   }
 
   return (
-    <Container className="mb-5 p-5 text-center white-bg rounded">
+    <Container className="mb-5 p-4 text-center white-bg rounded">
       <Row>
         <h4 className="pb-3">
           Choose your next play from the following connections:

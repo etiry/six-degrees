@@ -19,14 +19,13 @@ const getRandomOption = (optionArray) =>
  *
  * @return {number} Number of plays
  */
-const getPlays = (currentGameStatus) => {
+const getPlays = (currentGameStatus) =>
   currentGameStatus.reduce((acc, selection) => {
     if (selection.name) {
       return acc + 1;
     }
     return acc;
   }, -1);
-};
 
 /**
  * Filters out existing selections from connections array

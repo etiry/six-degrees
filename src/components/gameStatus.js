@@ -41,28 +41,13 @@ const GameStatus = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options]);
 
-  const content = selections.map((person, index) => {
-    if (index === 0) {
-      return (
-        <Col key={index} className="d-flex align-items-center flex-grow-0">
-          <Col>
-            <Person person={person} selected />
-          </Col>
-        </Col>
-      );
-    }
-
-    return (
-      <Col key={index} className="d-flex align-items-center">
-        <Col>
-          <p className="show-name">{person.commonShow}</p>
-        </Col>
-        <Col>
-          <Person person={person} selected />
-        </Col>
+  const content = selections.map((person, index) => (
+    <Col key={index} className="d-flex align-items-center">
+      <Col className="mb-5">
+        <Person person={person} selected />
       </Col>
-    );
-  });
+    </Col>
+  ));
 
   return (
     <Container className="mb-5 p-4 text-center white-bg rounded">

@@ -10,14 +10,14 @@ import Col from 'react-bootstrap/Col';
  */
 
 const Instructions = () => (
-  <Container className="mb-5 p-5 white-bg rounded">
+  <Container className="mb-5 p-5 p-mobile white-bg rounded">
     <Row className="text-center">
       <Col>
         <h4 >How to Play</h4>
       </Col>
     </Row>
     <Row>
-      <Col className="col-6 offset-3">
+      <Col className="col-md-6 offset-md-3">
       <p>
           According to {' '}
           <a href="https://en.wikipedia.org/wiki/Six_degrees_of_separation">

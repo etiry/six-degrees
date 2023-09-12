@@ -16,7 +16,7 @@ const About = () => (
       </Col>
     </Row>
     <Row>
-      <Col className="col-6 offset-3">
+      <Col className="col-md-6 offset-md-3">
         <p>
           This project was created by Emily Tiry as a project for the Parsity
           code school to display front-end web development skills.

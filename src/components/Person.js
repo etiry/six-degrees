@@ -31,6 +31,7 @@ const Person = ({ person, selected }) => {
       <div className="avatar-big text-center">
         <Image src={person.imgUrl} className="avatar-img rounded-circle" />
         <p className="person-name">{person.name}</p>
+        <p className="show-name">{person.commonShow}</p>
       </div>
     );
   }
